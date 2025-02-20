@@ -307,7 +307,10 @@ PYBIND11_MODULE(libfranka, m) {
            py::arg("log_size") = 50)
       .def("read", &franka::Robot::read)
       .def("read_once", &franka::Robot::readOnce)
-      .def("load_model", &franka::Robot::loadModel)
+      .def("load_model", 
+           py::overload_cast<>(&franka::Robot::loadModel))
+    //   .def("load_model_with_robot_model", 
+    //        py::overload_cast<std::unique_ptr<RobotModelBase>>(&franka::Robot::loadModel))
       .def("server_version", &franka::Robot::serverVersion)
       .def("control",
            py::overload_cast<std::function<franka::Torques(
